@@ -150,6 +150,21 @@ db.products.updateOne({ brand: 'Samsung' }, { $unset: { discount: '' } })
 //Rename reviews to reviewCount.
 db.products.updateMany({}, { $rename: { reviews: 'reviewCount' } })
 
+//Add a tag
+db.products.updateOne({ name: "iPhone 15" }, { $push: { tags: 'discounted' } })
+
+//Add a tag only if it doesn't exist
+db.products.updateOne({ name: "iPhone 15" }, { $addToSet: { tags: 'disco' } })
+
+//Remove a specific tag
+db.products.updateOne({ name: "iPhone 15" }, { $pull: { tags: 'disco' } })
+
+//Remove the last tag.
+db.products.updateOne({ name: "iPhone 15" }, { $pop: { tags: 1 } })
+
+//Remove the first tag.
+db.products.updateOne({ name: "iPhone 15" }, { $pop: { tags: -1 } })
+
 //
 
 
