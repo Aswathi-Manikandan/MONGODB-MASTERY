@@ -1,0 +1,66 @@
+$or — ANY condition should be true
+
+$or returns documents when at least one of the conditions is true.
+db.users.find({
+  $or: [
+    { age: 25 },
+    { city: "Kochi" }
+  ]
+})
+
+Meaning:
+
+Give me users whose age is 25 OR city is Kochi.
+
+Result:
+
+John → age 25 ✓
+Mike → city Kochi ✓
+
+
+
+2. $nor — NONE of the conditions should be true
+
+$nor returns documents when all the conditions are false.
+
+db.users.find({
+  $nor: [
+    { age: 25 },
+    { city: "Kochi" }
+  ]
+})
+
+Meaning:
+
+Give me users who are NOT age 25 AND NOT from Kochi.
+
+Result:
+
+Anu → age 30 ✓ and city Calicut ✓
+
+John is excluded because age: 25 is true.
+Mike is excluded because city: Kochi is true.
+
+
+
+$all is used mainly with arrays.
+
+It means:
+
+The array must contain ALL the specified values.
+
+$in is used to check whether a field's value matches ANY ONE of the values give
+$in vs $all
+
+This is the important difference:
+
+// $in → ANY ONE
+{ city: { $in: ["Kochi", "Kannur"] } }
+
+➡️ City can be Kochi OR Kannur
+
+// $all → ALL values must exist in an array
+{ skills: { $all: ["JavaScript", "MongoDB"] } }
+
+➡️ Skills must contain JavaScript AND MongoDB
+
