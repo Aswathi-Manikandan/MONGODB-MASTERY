@@ -101,8 +101,36 @@ db.products.find({ "specifications.ram": 8 })
 //Find products where discount exists
 db.products.find({ discount: { $exists: true } })
 
+//Find products where battery exists
+db.products.find({
+  "specifications.battery": {
+    $exists: true
+  }
+})
+
+//Find products where price is a number
+db.products.find({
+  price: { $type: "number" }
+})
 
 
+//Find products whose name contains "Samsung"
+db.products.find({
+  name: { $regex: "Samsung" }
+})
+
+//Find products containing "Pro"
+db.products.find({ name: { $regex: "Pro" } })
+
+//Find products starting with i.
+db.products.find({ name: { $regex: /^i/ } })
+
+//Case-insensitive search for Apple.
+db.products.find({
+  brand: {
+    $regex: /^apple$/i
+  }
+})
 
 
 
