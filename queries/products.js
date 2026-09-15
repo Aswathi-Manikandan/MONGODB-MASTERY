@@ -170,8 +170,32 @@ db.products.deleteOne({
   name: "iPhone 15"
 })
 
-//
+//Count total products using aggregation.
+db.products.aggregate([{ $count: 'totalproducts' }])
 
+//Count products by category.
+db.products.aggregate([{ $group: { _id: '$category', count: { $sum: 1 } } }])
+
+//Count products by brand.
+db.products.aggregate([{ $group: { _id: '$brand', count: { $sum: 1 } } }])
+
+//Find average price of all products.
+db.products.aggregate([{ $group: { _id: null, average: { $avg: "$price" } } }])
+
+//Find average price for each category.
+db.products.aggregate([{ $group: { _id: '$category', average: { $avg: "$price" } } }])
+
+//Find maximum price in each category.
+db.products.aggregate([{ $group: { _id: '$category', maximum: { $max: "$price" } } }])
+
+//Find minimum price in each category.
+db.products.aggregate([{ $group: { _id: '$category', minimum: { $min: '$price' } } }])
+
+//Find total stock by category.
+db.products.aggregate([{ $group: { _id: '$category', stocks: { $sum: '$stock' } } }])
+
+//Find average rating by brand.
+db.products.aggregate([{ $group: { _id: '$brand', average: { $avg: '$rating' } } }])
 
 
 
