@@ -197,8 +197,19 @@ db.products.aggregate([{ $group: { _id: '$category', stocks: { $sum: '$stock' } 
 //Find average rating by brand.
 db.products.aggregate([{ $group: { _id: '$brand', average: { $avg: '$rating' } } }])
 
+//Find average price of Apple products.
+db.products.aggregate([{ $match: { brand: 'Apple' } }, { $group: { _id: null, avg: { $avg: '$price' } } }])
+
+//Count Mobile products.
+db.products.aggregate([
+  {
+    $match: { category: "Mobile" }
+  }, { $count: "mobileProducts" }])
+
+//Find average rating of products costing more than ₹50,000.
 
 
+//
 
 
 
