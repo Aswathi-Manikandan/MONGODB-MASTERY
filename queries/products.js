@@ -132,6 +132,26 @@ db.products.find({
   }
 })
 
+//Change iPhone price to ₹65,000.
+db.products.updateOne({ name: 'iPhone 15' }, { $set: { price: 65000 } })
+
+//Increase iPhone stock by 10
+db.products.updateOne({ name: 'iPhone 15' }, { $inc: { stock: 10 } })
+
+//Increase all Apple product prices by 5%.
+db.products.updateOne({ brand: "Apple" }, { $mul: { price: 1.05 } })
+
+//Give all Samsung products a 20% discount.
+db.products.updateMany({ brand: 'Samsung' }, { $set: { discount: 20 } })
+
+//Remove the discount field from one product
+db.products.updateOne({ brand: 'Samsung' }, { $unset: { discount: '' } })
+
+//Rename reviews to reviewCount.
+db.products.updateMany({}, { $rename: { reviews: 'reviewCount' } })
+
+//
+
 
 
 
