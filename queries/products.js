@@ -165,6 +165,11 @@ db.products.updateOne({ name: "iPhone 15" }, { $pop: { tags: 1 } })
 //Remove the first tag.
 db.products.updateOne({ name: "iPhone 15" }, { $pop: { tags: -1 } })
 
+//Delete one product
+db.products.deleteOne({
+  name: "iPhone 15"
+})
+
 //
 
 
