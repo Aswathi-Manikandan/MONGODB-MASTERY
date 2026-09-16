@@ -207,7 +207,7 @@ db.products.aggregate([
   }, { $count: "mobileProducts" }])
 
 //Find average rating of products costing more than ₹50,000.
-
+db.products.aggregate([{ $match: { price: { $gt: 50000 } } }, { $group: { _id: 'products', average: { $avg: "$rating" } } }])
 
 //
 
