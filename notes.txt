@@ -64,3 +64,13 @@ This is the important difference:
 
 ➡️ Skills must contain JavaScript AND MongoDB
 
+
+
+UPDATE OPERATORS
+$set
+$unset
+$inc
+$mul
+$min
+$max
+$rename

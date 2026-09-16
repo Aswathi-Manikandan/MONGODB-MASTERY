@@ -209,6 +209,18 @@ db.products.aggregate([
 //Find average rating of products costing more than ₹50,000.
 db.products.aggregate([{ $match: { price: { $gt: 50000 } } }, { $group: { _id: 'products', average: { $avg: "$rating" } } }])
 
+//show name, price
+db.products.aggregate([{ $project: { _id: 0, name: 1, price: 1 } }])
+
+//Unwind the tags array.
+db.products.aggregate([{ $unwind: '$tags' }])
+
+//Count products by tag
+db.products.aggregate([{ $unwind: '$tags' }, { $group: { _id: '$tags', count: { $sum: 1 } } }])
+
+//Find the most common tag.
+
+
 //
 
 
