@@ -284,3 +284,24 @@ db.orders.find({
 db.orders.find({
     totalAmount: { $type: "number" }
 })
+
+//REGEX
+
+//Q58. Find customers whose names start with A.
+db.orders.find({
+    "customer.name": {
+        $regex: /^A/
+    }
+})
+//Q59. Find customers whose names contain an.
+db.orders.find({
+    "customer.name": {
+        $regex: /an/i
+    }
+})
+//Q60. Find Gmail customers.
+db.orders.find({
+    "customer.email": {
+        $regex: /@gmail\.com$/
+    }
+})
