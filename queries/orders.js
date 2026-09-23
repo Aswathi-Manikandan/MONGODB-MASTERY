@@ -226,3 +226,47 @@ db.orders.find({
     "customer.city": "Kochi",
     "shippingAddress.city": "Kochi"
 })
+
+//ARRAY QUESTIONS
+
+//Q47. Find orders containing iPhone 15.
+db.orders.find({
+    "items.productName": "iPhone 15"
+})
+//Q48. Find orders containing AirPods Pro 2.
+db.orders.find({
+    "items.productName": "AirPods Pro 2"
+})
+//Q49. Find orders containing MacBook Air M2.
+db.orders.find({
+    "items.productName": "MacBook Air M2"
+})
+//Q50. Find orders containing Logitech MX Master 3S.
+db.orders.find({
+    "items.productName": "Logitech MX Master 3S"
+})
+//Q51. Find orders containing either iPhone 15 or MacBook Air M2.
+db.orders.find({
+    "items.productName": {
+        $in: ["iPhone 15", "MacBook Air M2"]
+    }
+})
+//Q52. Find orders where at least one item has quantity greater than 1.
+db.orders.find({
+    "items.quantity": { $gt: 1 }
+})
+//Q53. Find orders where an item has quantity exactly 2.
+db.orders.find({
+    "items.quantity": 2
+})
+//Q54. Find orders containing Sony WH-1000XM5 with quantity 2.
+db.orders.find({
+    items: {
+        $elemMatch: {
+            productName: "Sony WH-1000XM5",
+            quantity: 2
+        }
+    }
+})
+
+//This is important because $elemMatch checks conditions on the same array element
