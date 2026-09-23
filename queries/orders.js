@@ -270,3 +270,17 @@ db.orders.find({
 })
 
 //This is important because $elemMatch checks conditions on the same array element
+
+//EXISTS / TYPE
+//Q55. Find orders where paymentMethod exists.
+db.orders.find({
+    paymentMethod: { $exists: true }
+})
+//Q56. Find orders where customer.email exists.
+db.orders.find({
+    "customer.email": { $exists: true }
+})
+//Q57. Find orders where totalAmount is a number.
+db.orders.find({
+    totalAmount: { $type: "number" }
+})
