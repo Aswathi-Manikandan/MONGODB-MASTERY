@@ -50,3 +50,100 @@ db.orders.find(
         orderStatus: 1
     }
 )
+
+//COMPARISON OPERATORS
+
+//Q14. Find orders greater than ₹70,000.
+db.orders.find({
+    totalAmount: { $gt: 70000 }
+})
+//Q15. Find orders less than ₹50,000.
+db.orders.find({
+    totalAmount: { $lt: 50000 }
+})
+//Q16. Find orders greater than or equal to ₹70,000.
+db.orders.find({
+    totalAmount: { $gte: 70000 }
+})
+//Q17. Find orders between ₹50,000 and ₹80,000.
+db.orders.find({
+    totalAmount: {
+        $gte: 50000,
+        $lte: 80000
+    }
+})
+//Q18. Find orders not equal to ₹99,999.
+db.orders.find({
+    totalAmount: { $ne: 99999 }
+})
+//Q19. Find orders with total amount ₹43,998 or ₹57,998.
+db.orders.find({
+    totalAmount: {
+        $in: [43998, 57998]
+    }
+})
+//Q20. Find orders whose total amount is not ₹43,998 or ₹57,998.
+db.orders.find({
+    totalAmount: {
+        $nin: [43998, 57998]
+    }
+})
+
+//LOGICAL OPERATORS
+
+//Q21. Find delivered orders from Kochi.
+db.orders.find({
+    $and: [
+        { "customer.city": "Kochi" },
+        { orderStatus: "Delivered" }
+    ]
+})
+
+// also write:
+
+db.orders.find({
+    "customer.city": "Kochi",
+    orderStatus: "Delivered"
+})
+//Q22. Find orders that are either Delivered or Shipped.
+db.orders.find({
+    $or: [
+        { orderStatus: "Delivered" },
+        { orderStatus: "Shipped" }
+    ]
+})
+//Q23. Find orders from Kochi or Trivandrum.
+db.orders.find({
+    $or: [
+        { "customer.city": "Kochi" },
+        { "customer.city": "Trivandrum" }
+    ]
+})
+//Q24. Find orders that are not Cancelled.
+db.orders.find({
+    orderStatus: { $ne: "Cancelled" }
+})
+//Q25. Find orders that are either cancelled or pending payment.
+db.orders.find({
+    $or: [
+        { orderStatus: "Cancelled" },
+        { paymentStatus: "Pending" }
+    ]
+})
+//Q26. Find orders above ₹70,000 AND paid.
+db.orders.find({
+    totalAmount: { $gt: 70000 },
+    paymentStatus: "Paid"
+})
+//Q27. Find orders below ₹50,000 OR cancelled.
+db.orders.find({
+    $or: [
+        { totalAmount: { $lt: 50000 } },
+        { orderStatus: "Cancelled" }
+    ]
+})
+//Q28. Find orders that are NOT cancelled AND NOT pending.
+db.orders.find({
+    orderStatus: { $ne: "Cancelled" },
+    paymentStatus: { $ne: "Pending" }
+})
