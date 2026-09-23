@@ -74,3 +74,31 @@ $mul
 $min
 $max
 $rename
+
+* **`$cond`** → Used to evaluate a condition and return one value if it is true and another value if it is false.
+* **`$switch`** → Used to evaluate multiple conditions and return a result for the first matching condition.
+* **`$ifNull`** → Used to check whether a value is `null` or missing and return an alternative value.
+
+
+
+`$expr` allows you to use **aggregation expressions inside a query** and compare or calculate values between fields.
+
+ Syntax
+
+db.collection.find({
+  $expr: {
+    expression
+  }
+})
+
+
+For example, the general comparison syntax is:
+
+
+{
+  $expr: {
+    $gt: ["$field1", "$field2"]
+  }
+}
+
+> **`$expr` = Use expressions to compare or calculate field values inside `find()`.**
