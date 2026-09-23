@@ -1,0 +1,97 @@
+
+```js
+db.orders.find({
+  totalAmount: {
+    $in: [43998, 57998]
+  }
+})
+```
+
+means:
+
+> Find orders where `totalAmount` is **43998 OR 57998**.
+
+### Same query using `$or`
+
+```js
+db.orders.find({
+  $or: [
+    { totalAmount: 43998 },
+    { totalAmount: 57998 }
+  ]
+})
+```
+
+Both give the same result.
+
+### So why use `$in`?
+
+Because `$in` is specifically designed for:
+
+> **One field → multiple possible values**
+
+Think of it like:
+
+```text
+totalAmount = 43998 OR 57998 OR 69999 OR 99999
+```
+
+With `$in`:
+
+```js
+{ totalAmount: { $in: [43998, 57998, 69999, 99999] } }
+```
+
+Much cleaner than:
+
+```js
+{
+  $or: [
+    { totalAmount: 43998 },
+    { totalAmount: 57998 },
+    { totalAmount: 69999 },
+    { totalAmount: 99999 }
+  ]
+}
+```
+
+### Important difference
+
+`$in` → **same field, different values**
+
+```js
+{ paymentMethod: { $in: ["UPI", "Card"] } }
+```
+
+Means:
+
+```text
+paymentMethod = UPI OR paymentMethod = Card
+```
+
+`$or` → can combine **different fields or different conditions**
+
+```js
+{
+  $or: [
+    { totalAmount: 43998 },
+    { paymentStatus: "Pending" }
+  ]
+}
+```
+
+Means:
+
+```text
+totalAmount = 43998
+OR
+paymentStatus = Pending
+```
+
+### Easy rule to remember 🧠
+
+**Same field + multiple values → `$in`**
+
+**Different conditions/fields → `$or`**
+
+So in your example, `$in` is preferred because you're simply checking **`totalAmount` against a list of values**.
