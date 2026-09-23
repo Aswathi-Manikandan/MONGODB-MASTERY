@@ -305,3 +305,100 @@ db.orders.find({
         $regex: /@gmail\.com$/
     }
 })
+
+//Q61. Change ORD1001 status to Shipped.
+db.orders.updateOne(
+    { orderId: "ORD1001" },
+    {
+        $set: {
+            orderStatus: "Shipped"
+        }
+    }
+)
+//Q62. Change ORD1005 payment status to Paid.
+db.orders.updateOne(
+    { orderId: "ORD1005" },
+    {
+        $set: {
+            paymentStatus: "Paid"
+        }
+    }
+)
+//Q63. Change Kochi shipping state to Kerala.
+db.orders.updateMany(
+    { "shippingAddress.city": "Kochi" },
+    {
+        $set: {
+            "shippingAddress.state": "Kerala"
+        }
+    }
+)
+//Q64. Add a couponCode field to ORD1001.
+db.orders.updateOne(
+    { orderId: "ORD1001" },
+    {
+        $set: {
+            couponCode: "WELCOME10"
+        }
+    }
+)
+//Q65. Remove couponCode.
+db.orders.updateOne(
+    { orderId: "ORD1001" },
+    {
+        $unset: {
+            couponCode: ""
+        }
+    }
+)
+
+//Q66. Add a new item to ORD1001.
+db.orders.updateOne(
+    { orderId: "ORD1001" },
+    {
+        $push: {
+            items: {
+                productName: "JBL Live 660NC",
+                quantity: 1,
+                price: 12999
+            }
+        }
+    }
+)
+//Q67. Remove the last item from ORD1001.
+db.orders.updateOne(
+    { orderId: "ORD1001" },
+    {
+        $pop: {
+            items: 1
+        }
+    }
+)
+//Q68. Increase quantity of an item.
+
+//For example, all matching Sony items:
+
+db.orders.updateOne(
+    {
+        orderId: "ORD1004",
+        "items.productName": "Sony WH-1000XM5"
+    },
+    {
+        $inc: {
+            "items.$.quantity": 1
+        }
+    }
+)
+
+//Q69. Delete ORD1015.
+db.orders.deleteOne({
+    orderId: "ORD1015"
+})
+//Q70. Delete all cancelled orders.
+db.orders.deleteMany({
+    orderStatus: "Cancelled"
+})
+//Q71. Delete orders from Wayanad.
+db.orders.deleteMany({
+    "customer.city": "Wayanad"
+})
