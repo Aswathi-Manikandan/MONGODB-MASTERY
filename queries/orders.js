@@ -19,3 +19,34 @@ db.orders.find({ paymentStatus: "Pending" })
 db.orders.find({ paymentMethod: "UPI" })
 //Q10. Find orders paid using Card.
 db.orders.find({ paymentMethod: "Card" })
+
+PROJECTION
+
+//Q11. Display only orderId and customer name.
+db.orders.find(
+    {},
+    {
+        _id: 0,
+        orderId: 1,
+        "customer.name": 1
+    }
+)
+//Q12. Display orderId and totalAmount only.
+db.orders.find(
+    {},
+    {
+        _id: 0,
+        orderId: 1,
+        totalAmount: 1
+    }
+)
+//Q13. Display customer name, city and order status.
+db.orders.find(
+    {},
+    {
+        _id: 0,
+        "customer.name": 1,
+        "customer.city": 1,
+        orderStatus: 1
+    }
+)
