@@ -200,3 +200,29 @@ db.orders.distinct("paymentMethod")
 db.orders.distinct("orderStatus")
 //Q42. Find all different customer cities.
 db.orders.distinct("customer.city")
+
+
+//NESTED DOCUMENT QUESTIONS
+
+//Q43. Find customers from Kerala city Kochi.
+db.orders.find({
+    "shippingAddress.city": "Kochi"
+})
+//Q44. Find orders shipped to pincode 682001.
+db.orders.find({
+    "shippingAddress.pincode": 682001
+})
+//Q45. Display customer name and shipping city.
+db.orders.find(
+    {},
+    {
+        _id: 0,
+        "customer.name": 1,
+        "shippingAddress.city": 1
+    }
+)
+//Q46. Find orders where customer city and shipping city are both Kochi.
+db.orders.find({
+    "customer.city": "Kochi",
+    "shippingAddress.city": "Kochi"
+})
