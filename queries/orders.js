@@ -147,3 +147,33 @@ db.orders.find({
     orderStatus: { $ne: "Cancelled" },
     paymentStatus: { $ne: "Pending" }
 })
+
+//SORT / LIMIT / SKIP
+
+//Q29. Sort orders by total amount ascending.
+db.orders.find().sort({
+    totalAmount: 1
+})
+//Q30. Sort orders by total amount descending.
+db.orders.find().sort({
+    totalAmount: -1
+})
+//Q31. Find the highest-value order.
+db.orders.find().sort({
+    totalAmount: -1
+}).limit(1)
+//Q32. Find the lowest-value order.
+db.orders.find().sort({
+    totalAmount: 1
+}).limit(1)
+//Q33. Find the top 5 highest orders.
+db.orders.find().sort({
+    totalAmount: -1
+}).limit(5)
+//Q34. Skip the first 5 orders.
+db.orders.find().skip(5)
+//Q35. Find the 6th, 7th and 8th highest orders.
+db.orders.find()
+    .sort({ totalAmount: -1 })
+    .skip(5)
+    .limit(3)
