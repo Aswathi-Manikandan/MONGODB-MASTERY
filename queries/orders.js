@@ -177,3 +177,26 @@ db.orders.find()
     .sort({ totalAmount: -1 })
     .skip(5)
     .limit(3)
+
+//COUNT / DISTINCT
+
+//Q36. Count total orders.
+db.orders.countDocuments()
+//Q37. Count delivered orders.
+db.orders.countDocuments({
+    orderStatus: "Delivered"
+})
+//Q38. Count cancelled orders.
+db.orders.countDocuments({
+    orderStatus: "Cancelled"
+})
+//Q39. Count orders from Kochi.
+db.orders.countDocuments({
+    "customer.city": "Kochi"
+})
+//Q40. Find all different payment methods.
+db.orders.distinct("paymentMethod")
+//Q41. Find all different order statuses.
+db.orders.distinct("orderStatus")
+//Q42. Find all different customer cities.
+db.orders.distinct("customer.city")
